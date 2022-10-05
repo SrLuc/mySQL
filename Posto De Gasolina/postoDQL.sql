@@ -5,11 +5,11 @@
 	ordenado por data de admissão decrescente;
 */
 
-select Em.CPF, Em.nome, Em.dataAdm, Em.salario, En.cidade, Te.numero
-from Empregado as Em join Endereco as En join telefone as Te
-on Em.cpf = Te.Empregado_CPF
-where dataAdm >= '2022-01-01' and dataDem <= '2022-03-31';
-/*VAZIA*/
+	select E.nome, E.CPF, E.dataAdm, E.salario, En.cidade, T.numero
+		from Empregado E
+			join Endereco En on E.CPF = En.empregado_CPF and E.dataAdm >= '2022-01-01' and dataAdm <= '2023-03-31'
+			join Telefone T on E.CPF = T.empregado_CPF;
+												/*RODOU*/
 
 /*
 	Relatório 2 -
@@ -17,9 +17,12 @@ where dataAdm >= '2022-01-01' and dataDem <= '2022-03-31';
 	(Nome Empregado, CPF Empregado, Data Admissão,  Salário, Cidade Moradia), ordenado por nome do empregado;
 */
 
-select AVG(Em.salario)as mediaSalarial, Em.nome, Em.CPF, Em.dataAdm, Em.salario, En.cidade
-from Empregado as Em join Endereco as En;
-/*RODOU*/
+	select E.nome, E.CPF, E.dataAdm, E.salario, En.cidade
+		from Empregado E 
+			join Endereco En
+				on E.salario <= 1989 and E.CPF = En.empregado_CPF
+					order by E.nome;
+							/*RODOU*/
 
 
 /*
@@ -28,13 +31,14 @@ from Empregado as Em join Endereco as En;
 	colunas (Nome Empregado, CPF Empregado, Data Admissão,  Salário, Cidade Moradia, Quantidade de Dependentes), ordenado por nome do empregado;
 */
 
-SELECT E.nome, E.CPF, E.dataAdm, E.salario, En.cidade, Dep.parentesco, count(Dep.parentesco) AS quantidadeParentes
-FROM Empregado AS E JOIN Endereco AS En JOIN Dependente As Dep
-ON E.cpf = En.Empregado_CPF AND Dep.empregado_CPF = E.cpf
-GROUP BY E.CPF
-ORDER BY E.nome;
-/*RODOU*/
-
+	select E.nome, E.CPF, E.dataAdm, E.salario, En.cidade, Dep.parentesco, count(Dep.parentesco) as quantidadeParentes
+		from Empregado E 
+			join Endereco En 
+			join Dependente Dep
+				on E.cpf = En.Empregado_CPF and Dep.empregado_CPF = E.cpf
+					group by E.CPF
+					order by E.nome;
+							/*RODOU*/
 
 /*
 	Relatório 4 - 
@@ -42,39 +46,33 @@ ORDER BY E.nome;
     trazendo as colunas (Nome Empregado, CPF Empregado, Sexo, Salário, Quantidade Vendas, Total Valor Vendido), ordenado por quantidade total de vendas realizadas;
 */
 
-SELECT E.nome, E.CPF, E.sexo, E.salario, COUNT(V.idVendas) AS quantidadeVendas, SUM(V.valorTotal) AS valorTotalVendas
-FROM empregado AS E JOIN vendas AS V
-ON E.CPF = V.Empregado_CPF
-GROUP BY E.CPF
-ORDER BY V.idVendas;
-/*RODOU KRL/
+	select E.nome, E.CPF, E.sexo, E.salario, COUNT(V.idVendas) quantidadeVendas, SUM(V.valorTotal) AS valorTotalVendas
+		from empregado as E join vendas as V
+			on E.CPF = V.Empregado_CPF
+				group by E.CPF
+				order by V.idVendas;
+							/*RODOU*/
 
 /*
 	Relatório 5 - 
     Lista dos empregados que trabalham em cada departamento, 
+    
     trazendo as colunas 
     (Nome Empregado, CPF Empregado, Salário, Nome da Ocupação, Número do Telefone do Empregado, Nome do Departamento, 
     Local do Departamento, Número de Telefone do Departamento, Nome do Gerente), 
     ordenado por nome do Departamento;
 */
 
-SELECT E.nome, E.CPF, E.salario, O.nome AS Ocupação, D.nome AS DerpatamentoNome, D.localDep, T.numero AS FoneDepartamento, G.empregado_cpf
-FROM Empregado AS E JOIN Gerente AS G JOIN Departamento AS D JOIN Telefone AS T JOIN Ocupacao AS O JOIN Trabalhar AS Ta
-ON E.CPF = G.Empregado_CPF AND 
-D.Gerente_Empregado_CPF = G.Empregado_CPF AND
-G.empregado_cpf = E.CPF AND
-E.CPF = T.Empregado_CPF AND
-O.cbo = Ta.Ocupacao_cbo
-GROUP BY E.nome
-ORDER BY D.nome;
-/*N to conseguindo*/
-
 
 /*
 	Relatório 6 - 
     Lista dos departamentos contabilizando o número total de empregados por departamento, trazendo as colunas 
-    (Nome Departamento, Local Departamento, Total de Empregados do Departamento, Nome do Gerente, Número do Telefone do Departamento), ordenado por nome do Departamento;
+    (Nome Departamento, Local Departamento, Total de Empregados do Departamento, Nome do Gerente, Número do Telefone do Departamento), 
+    ordenado por nome do Departamento;
 */
+
+
+
 
 /*
 	Relatório 7 - 
@@ -82,11 +80,20 @@ ORDER BY D.nome;
     trazendo as colunas (Tipo Forma Pagamento, Quantidade Vendas, Total Valor Vendido), ordenado por quantidade total de vendas realizadas;
 */
 
+	select FP.tipoPag, count(V.idVendas) as QuantidadeVendas, sum(V.valorTotal)
+		from Vendas V
+			join FormaPag FP on FP.idFormaPag = V.idVendas and V.idVendas = FP.Vendas_idVendas
+				group by FP.tipoPag
+                order by QuantidadeVendas;
+                /*rodou filha da puta*/
+
 /*
 	Relatório 8 - 
     Lista das Vendas, informando o detalhamento de cada venda quanto os seus itens, 
     trazendo as colunas (Data Venda, Nome Produto, Quantidade ItensVenda, Valor Produto, Valor Total Venda, Nome Empregado, Nome do Departamento), ordenado por Data Venda;
 */
+
+
 
 /*
 	Relatório 9 - 
@@ -112,6 +119,3 @@ ORDER BY D.nome;
     Lista das vendas por departamentos contabilizando o número total de vendas por departamento, 
     trazendo as colunas (Nome Departamento, Local Departamento, Nome do Gerente,  Total de Vendas,  Valor Total das Vendas), ordenado por nome do Departamento;
 */
-
-
-
