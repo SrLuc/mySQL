@@ -9,7 +9,11 @@
 		from Empregado E
 			join Endereco En on E.CPF = En.empregado_CPF and E.dataAdm >= '2022-01-01' and dataAdm <= '2023-03-31'
 			join Telefone T on E.CPF = T.empregado_CPF;
+<<<<<<< HEAD
 												
+=======
+												/*RODOU*/
+>>>>>>> a2177502deccb4f156a4eb41bedfc62835fc431e
 
 /*
 	Relatório 2 -
@@ -22,7 +26,11 @@
 			join Endereco En
 				on E.salario <= 1989 and E.CPF = En.empregado_CPF
 					order by E.nome;
+<<<<<<< HEAD
 							
+=======
+							/*RODOU*/
+>>>>>>> a2177502deccb4f156a4eb41bedfc62835fc431e
 
 
 /*
@@ -31,6 +39,7 @@
 	colunas (Nome Empregado, CPF Empregado, Data Admissão,  Salário, Cidade Moradia, Quantidade de Dependentes), ordenado por nome do empregado;
 */
 
+<<<<<<< HEAD
 	select E.nome, E.cpf, E.dataAdm, E.salario, En.cidade, count(Dep.nome)"Quantidade de Dependente"
 		from Empregado E
 				join Endereco En on En.empregado_cpf = E.CPF
@@ -38,6 +47,16 @@
 					group by E.dataAdm
                     order by En.cidade DESC;
 							
+=======
+	select E.nome, E.CPF, E.dataAdm, E.salario, En.cidade, Dep.parentesco, count(Dep.parentesco) as quantidadeParentes
+		from Empregado E 
+			join Endereco En 
+			join Dependente Dep
+				on E.cpf = En.Empregado_CPF and Dep.empregado_CPF = E.cpf
+					group by E.CPF
+					order by E.nome;
+							/*RODOU*/
+>>>>>>> a2177502deccb4f156a4eb41bedfc62835fc431e
 
 /*
 	Relatório 4 - 
@@ -50,7 +69,11 @@
 			on E.CPF = V.Empregado_CPF
 				group by E.CPF
 				order by V.idVendas;
+<<<<<<< HEAD
 							
+=======
+							/*RODOU*/
+>>>>>>> a2177502deccb4f156a4eb41bedfc62835fc431e
 
 /*
 	Relatório 5 - 
@@ -62,6 +85,7 @@
     ordenado por nome do Departamento;
 */
 
+<<<<<<< HEAD
 	select E.nome, E.cpf, E.salario, T.numero "Telefone Do Empregado", D.nome, D.localDep, Eg.nome "Gerente", O.nome "Ocupação", Te.numero
 		from Empregado E
 			join Telefone T on T.empregado_cpf = E.cpf
@@ -72,6 +96,8 @@
             join gerente G on G.empregado_Cpf = d.gerente_empregado_cpf
             join Empregado Eg on Eg.cpf = G.empregado_cpf
 				order by d.nome;
+=======
+>>>>>>> a2177502deccb4f156a4eb41bedfc62835fc431e
 
 /*
 	Relatório 6 - 
@@ -80,6 +106,7 @@
     ordenado por nome do Departamento;
 */
 
+<<<<<<< HEAD
 	select D.nome, D.localDep, count(Tra.Empregado_cpf)"Quantidade de Empregado", Em.nome"Gerente", T.numero"Telefone Departamento"
 		from Departamento D
 			join Trabalhar Tra on Tra.Departamento_idDepartamento
@@ -89,6 +116,8 @@
             join Telefone T on T.departamento_idDepartamento = D.idDepartamento
 				group by T.numero
                 order by D.nome;
+=======
+>>>>>>> a2177502deccb4f156a4eb41bedfc62835fc431e
 
 
 
@@ -104,6 +133,13 @@
                 order by QuantidadeVendas;
                 
 
+	select FP.tipoPag, count(V.idVendas) as QuantidadeVendas, sum(V.valorTotal)
+		from Vendas V
+			join FormaPag FP on FP.idFormaPag = V.idVendas and V.idVendas = FP.Vendas_idVendas
+				group by FP.tipoPag
+                order by QuantidadeVendas;
+                /*rodou filha da puta*/
+
 /*
 	Relatório 8 - 
     Lista das Vendas, informando o detalhamento de cada venda quanto os seus itens, 
@@ -111,6 +147,7 @@
     ordenado por Data Venda;
 */
 
+<<<<<<< HEAD
 	select dataVenda, Es.nome, Count(IV.Vendas_idVendas)"Quantidade ItensVenda", Es.valor, SUM(V.valorTotal)"Valor total Venda", E.nome, D.nome
 		from Vendas V
 			join ItensVenda IV on V.idVendas = IV.Vendas_idVendas
@@ -120,6 +157,9 @@
             join Departamento D on D.gerente_empregado_Cpf
 				group by ES.nome
 				order by V.dataVenda;
+=======
+
+>>>>>>> a2177502deccb4f156a4eb41bedfc62835fc431e
 
 /*
 	Relatório 9 - 
@@ -163,6 +203,7 @@
 	Relatório 12 - 
     Lista das vendas por departamentos contabilizando o número total de vendas por departamento, 
     trazendo as colunas (Nome Departamento, Local Departamento, Nome do Gerente,  Total de Vendas,  Valor Total das Vendas), ordenado por nome do Departamento;
+<<<<<<< HEAD
 */
 
 
@@ -176,3 +217,6 @@
             join Departamento De on De.gerente_empregado_cpf = G.empregado_cpf
 				group by IV.Vendas_idVendas
                 order by De.nome;
+=======
+*/
+>>>>>>> a2177502deccb4f156a4eb41bedfc62835fc431e
