@@ -137,33 +137,33 @@ insert into estoque (nome, quantidade, valor, codigoBarra, categoria)
             ("Pipoca Gravatá Doce", 34, 2, "0010992869", "Alimento"),
             ("Coxinha Frango", 25, 6.99, "0010992845", "Alimento"),
             ("Enroladinho", 3, 6.99, "0010992846", "Alimento"),
-            ("Coxinha Fango c/Catupiry", 24, 6.99, "0010992847", "Alimento"),
+            ("Coxinha Fango cCatupiry", 24, 6.99, "0010992847", "Alimento"),
             ("Risole", 30, 6.99, "0010992848", "Alimento");
             
 insert into fornecedor 
-	values ("97.776.353/0001", "Ipiranga Distribuidora",  0, "ipidisp@ipiranga.br", 1),
-			("97.776.354/0001", "CocaCola Distribuidora", 0, "disp@coca.br", 1),
-            ("97.776.355/0001", "Pipocas Gravatá Distribuidora", 200.0, "disp@pipocasgta.br", 1),
-            ("97.776.356/0001", "Minalba Distribuidora", 200.0, "disp@minalba.br", 1),
-            ("97.776.357/0001", "Maria do Salgado", 30.0, "mariasal@gmail.com", 1),
-            ("97.776.358/0001", "Dona Glória do Salgado", 25.0, "glorinha@gmail.com", 1),
-            ("97.776.359/0001", "Iaia Águas Dist", 0, "iaiadisp@iaia.br", 0);
+	values ("97.776.3530001", "Ipiranga Distribuidora",  0, "ipidisp@ipiranga.br", 1),
+			("97.776.3540001", "CocaCola Distribuidora", 0, "disp@coca.br", 1),
+            ("97.776.3550001", "Pipocas Gravatá Distribuidora", 200.0, "disp@pipocasgta.br", 1),
+            ("97.776.3560001", "Minalba Distribuidora", 200.0, "disp@minalba.br", 1),
+            ("97.776.3570001", "Maria do Salgado", 30.0, "mariasal@gmail.com", 1),
+            ("97.776.3580001", "Dona Glória do Salgado", 25.0, "glorinha@gmail.com", 1),
+            ("97.776.3590001", "Iaia Águas Dist", 0, "iaiadisp@iaia.br", 0);
             
-insert into compras (`Fornecedor_CNPJ/CPF`, Estoque_idProduto, dataComp, qtdComp, valorComp)
-		values ("97.776.353/0001", 1, '2016-04-12 11:25:00', 5000, 4),
-				("97.776.353/0001", 2, '2022-04-12 11:25:00', 3000, 3),
-                ("97.776.353/0001", 3, '2022-05-12 11:25:00', 4000, 5),
-                ("97.776.356/0001", 4, '2022-05-12 11:25:00', 30, 1),
-                ("97.776.356/0001", 5, '2022-06-12 11:25:00', 50, 2),    
-                ("97.776.354/0001", 6, '2022-05-12 11:25:00', 20, 3),
-                ("97.776.354/0001", 7, '2022-04-12 11:25:00', 45, 3),
-                ("97.776.354/0001", 8, '2022-04-12 11:25:00', 40, 3),
-                ("97.776.354/0001", 9, '2022-06-12 11:25:00', 10, 1),
-                ("97.776.354/0001", 10, '2022-06-12 11:25:00', 60, 1),
-                ("97.776.358/0001", 11, '2022-06-08 11:25:00', 20, 4),
-                ("97.776.358/0001", 12, '2022-06-08 11:25:00', 20, 4),
-                ("97.776.358/0001", 13, '2022-06-08 11:25:00', 30, 4),
-                ("97.776.358/0001", 14, '2022-06-08 11:25:00', 30, 4);
+insert into compras (`Fornecedor_CNPJCPF`, Estoque_idProduto, dataComp, qtdComp, valorComp)
+		values ("97.776.3530001", 1, '2016-04-12 11:25:00', 5000, 4),
+				("97.776.3530001", 2, '2022-04-12 11:25:00', 3000, 3),
+                ("97.776.3530001", 3, '2022-05-12 11:25:00', 4000, 5),
+                ("97.776.3560001", 4, '2022-05-12 11:25:00', 30, 1),
+                ("97.776.3560001", 5, '2022-06-12 11:25:00', 50, 2),    
+                ("97.776.3540001", 6, '2022-05-12 11:25:00', 20, 3),
+                ("97.776.3540001", 7, '2022-04-12 11:25:00', 45, 3),
+                ("97.776.3540001", 8, '2022-04-12 11:25:00', 40, 3),
+                ("97.776.3540001", 9, '2022-06-12 11:25:00', 10, 1),
+                ("97.776.3540001", 10, '2022-06-12 11:25:00', 60, 1),
+                ("97.776.3580001", 11, '2022-06-08 11:25:00', 20, 4),
+                ("97.776.3580001", 12, '2022-06-08 11:25:00', 20, 4),
+                ("97.776.3580001", 13, '2022-06-08 11:25:00', 30, 4),
+                ("97.776.3580001", 14, '2022-06-08 11:25:00', 30, 4);
     
 insert into vendas (dataVenda, desconto, valorTotal, Empregado_CPF) 
 	values ('2022-06-01 10:30:00', 0.0, 70.0, "077.188.387-02"),
@@ -218,15 +218,15 @@ insert into formapag (tipoPag, qtdParcelas, valorPag, Vendas_idVendas)
             ("Dinheiro", 0, 29.0 ,14),
             ("Pix", 0, 13.0 ,15);
 
- insert into telefone (numero, empregado_cpf, departamento_iddepartamento, `fornecedor_cnpj/cpf`)
+ insert into telefone (numero, empregado_cpf, departamento_iddepartamento, `fornecedor_cnpjcpf`)
 	values ("81981905671", "070.154.874-57", null, null),
 		("8121263306", null, 1, null),
         ("81212633602", null, 2, null),
         ("81212633562", null, 3, null),
         ("81212633432", null, 4, null),
-        ("8132445678", null, null, "97.776.353/0001"),
-        ("8135331817", null, null, "97.776.355/0001"),
-        ("8135331237", null, null, "97.776.354/0001"),
+        ("8132445678", null, null, "97.776.3530001"),
+        ("8135331817", null, null, "97.776.3550001"),
+        ("8135331237", null, null, "97.776.3540001"),
         ("81999334455", "098.765.432-11", null, null),
         ("81999887766", "098.765.432-11", null, null),
         ("81999889900", "070.154.874-57", null, null),

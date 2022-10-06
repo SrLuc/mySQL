@@ -1,3 +1,4 @@
+
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
@@ -165,27 +166,27 @@ ENGINE = InnoDB;
 
 
 CREATE TABLE IF NOT EXISTS `postoInflamavel`.`Fornecedor` (
-  `cnpj/cpf` VARCHAR(18) NOT NULL,
+  `cnpjcpf` VARCHAR(18) NOT NULL,
   `nome` VARCHAR(45) NOT NULL,
   `valorFrete` DECIMAL(6,2) NULL,
   `email` VARCHAR(45) NULL,
   `statusFron` TINYINT NOT NULL,
-  PRIMARY KEY (`cnpj/cpf`))
+  PRIMARY KEY (`cnpjcpf`))
 ENGINE = InnoDB;
 
 
 CREATE TABLE IF NOT EXISTS `postoInflamavel`.`Compras` (
   `idCompras` INT NOT NULL AUTO_INCREMENT,
-  `Fornecedor_cnpj/cpf` VARCHAR(18) NOT NULL,
+  `Fornecedor_cnpjcpf` VARCHAR(18) NOT NULL,
   `Estoque_idProduto` INT NOT NULL,
   `dataComp` DATETIME NOT NULL,
   `qtdComp` DECIMAL(6,2) NOT NULL,
   `valorComp` DECIMAL(6,2) NOT NULL,
   `obs` VARCHAR(280) NULL,
-  PRIMARY KEY (`idCompras`, `Fornecedor_cnpj/cpf`, `Estoque_idProduto`),
+  PRIMARY KEY (`idCompras`, `Fornecedor_cnpjcpf`, `Estoque_idProduto`),
   CONSTRAINT `fk_Fornecedor_has_Estoque_Fornecedor1`
-    FOREIGN KEY (`Fornecedor_cnpj/cpf`)
-    REFERENCES `postoInflamavel`.`Fornecedor` (`cnpj/cpf`)
+    FOREIGN KEY (`Fornecedor_cnpjcpf`)
+    REFERENCES `postoInflamavel`.`Fornecedor` (`cnpjcpf`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `fk_Fornecedor_has_Estoque_Estoque1`
@@ -201,7 +202,7 @@ CREATE TABLE IF NOT EXISTS `postoInflamavel`.`Telefone` (
   `numero` VARCHAR(11) NOT NULL,
   `Departamento_idDepartamento` INT NULL,
   `Empregado_CPF` VARCHAR(14) NULL,
-  `Fornecedor_cnpj/cpf` VARCHAR(18) NULL,
+  `Fornecedor_cnpjcpf` VARCHAR(18) NULL,
   PRIMARY KEY (`idTelefone`),
   CONSTRAINT `fk_Telefone_Departamento1`
     FOREIGN KEY (`Departamento_idDepartamento`)
@@ -214,8 +215,8 @@ CREATE TABLE IF NOT EXISTS `postoInflamavel`.`Telefone` (
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `fk_Telefone_Fornecedor1`
-    FOREIGN KEY (`Fornecedor_cnpj/cpf`)
-    REFERENCES `postoInflamavel`.`Fornecedor` (`cnpj/cpf`)
+    FOREIGN KEY (`Fornecedor_cnpjcpf`)
+    REFERENCES `postoInflamavel`.`Fornecedor` (`cnpjcpf`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
@@ -232,12 +233,12 @@ CREATE TABLE IF NOT EXISTS `postoInflamavel`.`FormaPagComp` (
   `tipoFormaPag` VARCHAR(45) NOT NULL,
   `valor` VARCHAR(45) NOT NULL,
   `Compras_idCompras` INT NOT NULL,
-  `Compras_Fornecedor_cnpj/cpf` VARCHAR(18) NOT NULL,
+  `Compras_Fornecedor_cnpjcpf` VARCHAR(18) NOT NULL,
   `Compras_Estoque_idProduto` INT NOT NULL,
   PRIMARY KEY (`idFormaPagComp`),
   CONSTRAINT `fk_FormaPagComp_Compras1`
-    FOREIGN KEY (`Compras_idCompras` , `Compras_Fornecedor_cnpj/cpf` , `Compras_Estoque_idProduto`)
-    REFERENCES `postoInflamavel`.`Compras` (`idCompras` , `Fornecedor_cnpj/cpf` , `Estoque_idProduto`)
+    FOREIGN KEY (`Compras_idCompras` , `Compras_Fornecedor_cnpjcpf` , `Compras_Estoque_idProduto`)
+    REFERENCES `postoInflamavel`.`Compras` (`idCompras` , `Fornecedor_cnpjcpf` , `Estoque_idProduto`)
     ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -274,7 +275,7 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 SET SQL_SAFE_UPDATES = 0;
 
 /*Travar a base de dados para permitir delete sem where*/
-/*SET SQL_SAFE_UPDATES = 1;*/
+SET SQL_SAFE_UPDATES = 1;
 
 -- Alter Table --
 alter table empregado add column ctps varchar(15) after email;
@@ -282,5 +283,3 @@ alter table empregado add column ctps varchar(15) after email;
 alter table departamento add column email varchar(60) unique not null after nome;
 
 alter table departamento add column descricao varchar(200) after horario;
-
-  
