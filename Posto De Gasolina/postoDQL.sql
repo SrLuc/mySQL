@@ -31,21 +31,12 @@
 	colunas (Nome Empregado, CPF Empregado, Data Admissão,  Salário, Cidade Moradia, Quantidade de Dependentes), ordenado por nome do empregado;
 */
 
-	select E.nome, E.cpf, E.dataAdm, E.salario, En.cidade, count(Dep.nome)"Quantidade de Dependente"
-		from Empregado E
-				join Endereco En on En.empregado_cpf = E.CPF
-                join Dependente Dep on Dep.empregado_cpf = E.CPF
-					group by E.dataAdm
-                    order by En.cidade DESC;
-							
-
-	select E.nome, E.CPF, E.dataAdm, E.salario, En.cidade, Dep.parentesco, count(Dep.parentesco) as quantidadeParentes
-		from Empregado E 
-			join Endereco En 
-			join Dependente Dep
-				on E.cpf = En.Empregado_CPF and Dep.empregado_CPF = E.cpf
-					group by E.CPF
-					order by E.nome;
+	select E.nome, E.cpf, E.dataAdm, E.salario, En.cidade, count(Dep.cpf)"Quantidade de Dependente"
+        from Empregado E
+            join Endereco En on En.empregado_cpf = E.cpf
+            join Dependente Dep on Dep.empregado_cpf = E.cpf
+                group by E.cpf
+                order by E.nome;
 
 /*
 	Relatório 4 - 
@@ -193,4 +184,4 @@
             join Departamento De on De.gerente_empregado_cpf = G.empregado_cpf
 				group by IV.Vendas_idVendas
                 order by De.nome;
-
+o
